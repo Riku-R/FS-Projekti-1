@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head'); %>
+</head>
+<body class="container">
+
+<header>
+  <%- include('../partials/header'); %>
+</header>
+
+<main>
+    <div class="jumbotron">
+        <form action="/ajaxmessage" class="guestform2" onsubmit="return dataCollect(this);" method="post">
+            <div class="form-inner">
+              <h1 class="otsikko">Leave a new message!</h1>
+              <h5>But this time it's an AJAX call!</h5>
+              <br></br><input type="text" placeholder="Username" id="ajaxname" class="formtieto1" name="formname">
+              <br></br><input type="text" placeholder="Country" id="ajaxcountry" class="formtieto1" name="formcountry">
+              <br></br><textarea placeholder="Message..." rows="3" id="ajaxmessage" class="formtieto2" name="formmessage"></textarea>
+              <br></br><button id ="button1" type="submit" href="/">Submit</button>
+            </div>
+          </form>
+    </div>
+    <div id="status"></div>
+
+</main>
+
+<footer>
+  <%- include('../partials/footer'); %>
+</footer>
+
+<script>
+  function dataCollect(form) {
+    if (form.formname.value == "" || form.formcountry.value == "" || form.formmessage.value == "") {
+        alert("Empty fields must be filled out!"); }
+        
+        else {
+          
+  nappi.addEventListener("click", () => {
+  var username = getElementById("ajaxname").value;
+  var country = getElementById("ajaxcountry").value;
+  var message = getElementById("ajaxmessage").value;
+  console.log(username, country, message);
+
+  var xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("status").innerHTML = this.responseText;
+      console.log(this.responseText);
+    }
+  };
+  
+  xmlhttp.open("post", "/ajaxmessage", true);
+  xmlhttp.setRequestHeader("Content-type", "application/json");
+  var data = {
+    "username": username,
+    "country": country,
+    "message": message
+  };
+  xmlhttp.send(JSON.stringify(data));
+})
+}
+return false;
+  }
+</script> 
+</body>
+</html>
