@@ -17,7 +17,7 @@ app.get('/', function(req, res) {
 
 // guestbook sivu
 app.get('/guestbook', function(req, res) {
-    var jsondata = require('./data.json');
+    var jsondata = require('./sivupohja/data.json');
     res.render('pages/guestbook', {guestbook: jsondata});
 });
 
@@ -30,7 +30,7 @@ app.post('/newmessage', function(req, res) {
     var username = req.body.formname;
     var country = req.body.formcountry;
     var message = req.body.formmessage;
-    var data = require('./data.json');
+    var data = require('./sivupohja/data.json');
 
     data.push({
         "username": username,
@@ -56,7 +56,7 @@ app.post('/ajaxmessage', function(req,res) {
     var username = req.body.formname;
     var country = req.body.formcountry;
     var message = req.body.formmessage;
-    var data = require('./data.json');
+    var data = require('./sivupohja/data.json');
 
     data.push({
         "username": username,
